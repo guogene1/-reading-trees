@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>读书养小树</title>
+    <style>
+        /* 保持原有样式不变 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #e0f7fa, #0075ff);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2e7d32;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #388e3c;
+            margin-bottom: 15px;
+        }
+        
+        .slogan {
+            font-style: italic;
+            color: #558b2f;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .datetime {
+            text-align: center;
+            color: #2e7d32;
+            font-size: 2rem;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .garden-container {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .garden-title {
+            font-size: 1.5rem;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .garden {
+            width: 100%;
+            height: 400px;
+            background: #c8e6c9;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #81c784;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: #5d4037;
+            border-top: 5px solid #5d4037;
+        }
+        
+        .flower {
+            position: absolute;
+            bottom: 60px; /* 确保植物从地面生长 */
+            transition: all 0.5s ease;
+            animation: grow 0.5s ease-out forwards;
+        }
+        
+        .small-flower {
+            width: 40px;
+            height: 60px;
+        }
+        
+        .big-flower {
+            width: 60px;
+            height: 80px;
+        }
+        
+        .huge-flower {
+            width: 80px;
+            height: 100px;
+        }
+        
+        .tree {
+            position: absolute;
+            bottom: 60px; /* 确保植物从地面生长 */
+            transition: all 0.5s ease;
+        }
+        
+        .small-tree {
+            width: 60px;
+            height: 120px;
+        }
+        
+        .big-tree {
+            width: 100px;
+            height: 200px;
+        }
+        
+        .huge-tree {
+            width: 160px;
+            height: 300px;
+        }
+        
+        .task-container {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .task-title {
+            font-size: 2rem;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .task-item {
+            background: #e8f5e9;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid #4caf50;
+        }
+        
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .task-progress {
+            height: 10px;
+            background: #c8e6c9;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .task-progress-bar {
+            height: 100%;
+            background: #4caf50;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .controls-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+        
+        .controls-title {
+            font-size: 1.5rem;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .control-group {
+            margin-bottom: 25px;
+        }
+        
+        .control-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #388e3c;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .slider {
+            flex: 1;
+            height: 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #c8e6c9;
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #2e7d32;
+            cursor: pointer;
+        }
+        
+        .value-display {
+            min-width: 50px;
+            text-align: center;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        
+        /* 文本输入区域样式 */
+        .text-input-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+        
+        .text-input-title {
+            font-size: 1.5rem;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        #readingText {
+            width: 100%;
+            min-height: 150px;
+            padding: 30px;
+            border: 2px solid #c8e6c9;
+            border-radius: 20px;
+            font-size: 1.5rem;
+            resize: vertical;
+            margin-bottom: 0px;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        .status-display {
+            margin-top: 0px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 10px;
+            border-left: 5px solid #4caf50;
+        }
+        
+        .status-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2e7d32;
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .timer-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .timer-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2e7d32;
+            text-align: center;
+        }
+        
+        .timer-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .mic-status {
+            text-align: center;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .mic-on {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .mic-off {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: #388e3c;
+        }
+        
+        .btn:disabled {
+            background: #a5d6a7;
+            cursor: not-allowed;
+        }
+        
+        .current-db {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+            color: #2e7d32;
+        }
+        
+        .db-meter {
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .db-level {
+            height: 100%;
+            background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        /* 添加树动画效果 */
+        @keyframes grow {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .tree, .flower {
+            animation: grow 0.8s ease-out forwards;
+        }
+        
+        /* 枯萎动画 */
+        @keyframes wither {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(0.8); opacity: 0.3; }
+        }
+        
+        .tree-wither, .flower-wither {
+            animation: wither 0.5s ease-out forwards;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .timer-container {
+                position: static;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>读书养小树</h1>
+            <div class="subtitle">朗朗书声，茁壮成长</div>
+            <div class="slogan">"大声朗读，让小树见证你的成长！"</div>
+        </header>
+        
+        <div class="main-content">
+            <div class="garden-container" id="gardenContainer">
+                <!--<button class="fullscreen-btn" id="fullscreenBtn">-->
+                    <!-- 全屏图标 -->
+                    <!--<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 3H6V6H3V3Z" fill="white"/>
+                        <path d="M10 3H13V6H10V3Z" fill="white"/>
+                        <path d="M3 10H6V13H3V10Z" fill="white"/>
+                        <path d="M10 10H13V13H10V10Z" fill="white"/>
+                    </svg>
+                </button>-->
+                <div class="garden-title">我的朗读树园</div>
+                <div class="garden" id="garden">
+                    <div class="ground"></div>
+                    <!-- 植物将通过JavaScript动态添加 -->
+                </div>
+                <div class="current-db">当前音量：<span id="currentDb">0</span> 分贝</div>
+                <div class="db-meter">
+                    <div class="db-level" id="dbLevel"></div>
+                </div>
+                <div class="mic-status" id="micStatus">麦克风未开启</div>
+                <button class="btn" id="startBtn">开始朗读检测</button>
+            </div>
+            
+            <!-- 今日朗读任务区域 -->
+            <div class="task-container">
+                <div class="datetime" id="datetime"></div>
+                <div class="task-title">今日任务</div>
+                <textarea id="readingText" placeholder="请输入文本内容..."></textarea>
+                <div class="status-display">
+                <div class="status-title">树园状态</div>
+                <div class="status-item">
+                    <span>当前小树数量：</span>
+                    <span id="treeCount">0</span>
+                </div>
+                <div class="status-item">
+                    <span>大树数量：</span>
+                    <span id="bigTreeCount">0</span>
+                </div>
+                <div class="status-item">
+                    <span>大大树数量：</span>
+                    <span id="hugeTreeCount">0</span>
+                </div>
+                <div class="status-item">
+                    <span>小四叶草数量：</span>
+                    <span id="smallFlowerCount">0</span>
+                </div>
+                <div class="status-item">
+                    <span>大四叶草数量：</span>
+                    <span id="bigFlowerCount">0</span>
+                </div>
+                <div class="status-item">
+                    <span>大大四叶草数量：</span>
+                    <span id="hugeFlowerCount">0</span>
+                </div>
+                <div class="status-item">
+                    <span>达到音量要求：</span>
+                    <span id="meetingRequirement">否</span>
+                </div>
+            </div>
+            <div class="timer-container">
+            <div class="timer-title">朗读计时器</div>
+            <div class="timer-item">
+                <span>达到音量要求时间：</span>
+                <span id="meetingTime">00:00</span>
+            </div>
+            <div class="timer-item">
+                <span>未达到音量要求时间：</span>
+                <span id="notMeetingTime">00:00</span>
+            </div>
+            <div class="timer-item">
+                <span>当前连续达标时间：</span>
+                <span id="currentMeetingTime">00:00</span>
+            </div>
+            <div class="timer-item">
+                <span>当前连续未达标时间：</span>
+                <span id="currentNotMeetingTime">00:00</span>
+            </div>
+        </div>
+        </div>
+        </div>
+        
+        <!-- 控制面板移至花园下方 -->
+        <div class="controls-container">
+            <div class="controls-title">教师控制面板</div>
+            
+            <div class="control-group">
+                <label class="control-label">生长所需音量（分贝）</label>
+                <div class="slider-container">
+                    <input type="range" min="0" max="80" value="40" class="slider" id="growDbSlider">
+                    <div class="value-display" id="growDbValue">40</div>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label">枯萎音量线（分贝）</label>
+                <div class="slider-container">
+                    <input type="range" min="0" max="70" value="35" class="slider" id="shrinkDbSlider">
+                    <div class="value-display" id="shrinkDbValue">35</div>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label">生长基础时间（秒）</label>
+                <div class="slider-container">
+                    <input type="range" min="0" max="14" value="7" class="slider" id="growTimeSlider">
+                    <div class="value-display" id="growTimeValue">7</div>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label">消失所需时间（秒）</label>
+                <div class="slider-container">
+                    <input type="range" min="0" max="20" value="10" class="slider" id="shrinkTimeSlider">
+                    <div class="value-display" id="shrinkTimeValue">10</div>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label">生长随机性（%）</label>
+                <div class="slider-container">
+                    <input type="range" min="0" max="100" value="50" class="slider" id="randomnessSlider">
+                    <div class="value-display" id="randomnessValue">50</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let audioContext;
+        let analyser;
+        let microphone;
+        let javascriptNode;
+        let isMonitoring = false;
+        let trees = [];
+        let flowers = [];
+        let meetingTime = 0;
+        let notMeetingTime = 0;
+        let currentMeetingTime = 0;
+        let currentNotMeetingTime = 0;
+        let lastDbValue = 0;
+        let lastStatus = null; // 记录上一次的状态
+        let consecutiveCheckInterval; // 连续状态检查定时器
+        //let isFullscreen = false; // 全屏状态标记
+        
+        // 配置参数 - 增加随机性相关配置
+        let config = {
+            growDb: 40,
+            shrinkDb: 35,
+            growTime: 7,
+            shrinkTime: 10,
+            randomness: 50, // 随机性百分比
+            treesToUpgrade: 6, // 6个低级树合成1个高级树
+            flowersToUpgrade: 6, // 6个低级花合成1个高级花
+            dbSmoothingFactor: 0.7,
+            plantSpacing: 15, // 植物之间的最小间距
+            // 植物类型概率分布
+            plantTypeProbabilities: {
+                smallTree: 50,   // 50%概率生长小树
+                bigTree: 5,     // 5%概率直接生长大树
+                flower: 45       // 45%概率生长花朵
+            }
+        };
+        
+        // DOM元素
+        const startBtn = document.getElementById('startBtn');
+        const currentDbElement = document.getElementById('currentDb');
+        const dbLevelElement = document.getElementById('dbLevel');
+        const micStatusElement = document.getElementById('micStatus');
+        const gardenElement = document.querySelector('.garden');
+        const gardenContainer = document.getElementById('gardenContainer');
+        const treeCountElement = document.getElementById('treeCount');
+        const bigTreeCountElement = document.getElementById('bigTreeCount');
+        const hugeTreeCountElement = document.getElementById('hugeTreeCount');
+        const smallFlowerCountElement = document.getElementById('smallFlowerCount');
+        const bigFlowerCountElement = document.getElementById('bigFlowerCount');
+        const hugeFlowerCountElement = document.getElementById('hugeFlowerCount');
+        const meetingRequirementElement = document.getElementById('meetingRequirement');
+        const meetingTimeElement = document.getElementById('meetingTime');
+        const notMeetingTimeElement = document.getElementById('notMeetingTime');
+        const currentMeetingTimeElement = document.getElementById('currentMeetingTime');
+        const currentNotMeetingTimeElement = document.getElementById('currentNotMeetingTime');
+        const datetimeElement = document.getElementById('datetime');
+        
+        // 任务相关元素
+        const taskDurationElement = document.getElementById('taskDuration');
+        const taskTreesElement = document.getElementById('taskTrees');
+        const taskFlowersElement = document.getElementById('taskFlowers');
+        const durationProgressElement = document.getElementById('durationProgress');
+        const treesProgressElement = document.getElementById('treesProgress');
+        const flowersProgressElement = document.getElementById('flowersProgress');
+        
+        // 随机性控制滑块
+        const randomnessSlider = document.getElementById('randomnessSlider');
+        const randomnessValue = document.getElementById('randomnessValue');
+        
+        // 滑块元素
+        const growDbSlider = document.getElementById('growDbSlider');
+        const shrinkDbSlider = document.getElementById('shrinkDbSlider');
+        const growTimeSlider = document.getElementById('growTimeSlider');
+        const shrinkTimeSlider = document.getElementById('shrinkTimeSlider');
+        
+        // 滑块值显示元素
+        const growDbValue = document.getElementById('growDbValue');
+        const shrinkDbValue = document.getElementById('shrinkDbValue');
+        const growTimeValue = document.getElementById('growTimeValue');
+        const shrinkTimeValue = document.getElementById('shrinkTimeValue');
+        
+        // 初始化函数
+        function init() {
+            // 设置滑块事件监听
+            growDbSlider.addEventListener('input', updateGrowDb);
+            shrinkDbSlider.addEventListener('input', updateShrinkDb);
+            growTimeSlider.addEventListener('input', updateGrowTime);
+            shrinkTimeSlider.addEventListener('input', updateShrinkTime);
+            randomnessSlider.addEventListener('input', updateRandomness);
+            
+            // 设置开始按钮事件
+            startBtn.addEventListener('click', toggleMonitoring);
+            
+            // 设置全屏按钮事件
+            //fullscreenBtn.addEventListener('click', toggleFullscreen);
+            
+            // 初始化显示值
+            updateDisplayValues();
+            
+            // 开始计时器
+            startTimers();
+            
+            // 初始化并启动日期时间显示
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+        }
+        
+        // 更新日期时间显示
+        function updateDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            datetimeElement.textContent = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+        
+        // 更新显示值
+        function updateDisplayValues() {
+            growDbValue.textContent = config.growDb;
+            shrinkDbValue.textContent = config.shrinkDb;
+            growTimeValue.textContent = config.growTime;
+            shrinkTimeValue.textContent = config.shrinkTime;
+            randomnessValue.textContent = config.randomness;
+        }
+        
+        // 滑块更新函数
+        function updateGrowDb() {
+            config.growDb = parseInt(growDbSlider.value);
+            growDbValue.textContent = config.growDb;
+        }
+        
+        function updateShrinkDb() {
+            config.shrinkDb = parseInt(shrinkDbSlider.value);
+            shrinkDbValue.textContent = config.shrinkDb;
+        }
+        
+        function updateGrowTime() {
+            config.growTime = parseInt(growTimeSlider.value);
+            growTimeValue.textContent = config.growTime;
+        }
+        
+        function updateShrinkTime() {
+            config.shrinkTime = parseInt(shrinkTimeSlider.value);
+            shrinkTimeValue.textContent = config.shrinkTime;
+        }
+        
+        // 更新随机性参数
+        function updateRandomness() {
+            config.randomness = parseInt(randomnessSlider.value);
+            randomnessValue.textContent = config.randomness;
+        }
+        
+        // 切换监测状态
+        function toggleMonitoring() {
+            if (isMonitoring) {
+                stopMonitoring();
+            } else {
+                startMonitoring();
+            }
+        }
+        
+        // 开始监测
+        function startMonitoring() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                alert('您的浏览器不支持麦克风访问，请使用现代浏览器！');
+                return;
+            }
+            
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function(stream) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    analyser = audioContext.createAnalyser();
+                    microphone = audioContext.createMediaStreamSource(stream);
+                    
+                    if (audioContext.createScriptProcessor) {
+                        javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+                    } else if (audioContext.createJavaScriptNode) {
+                        javascriptNode = audioContext.createJavaScriptNode(2048, 1, 1);
+                    } else {
+                        alert('您的浏览器不支持音频处理功能！');
+                        return;
+                    }
+                    
+                    analyser.smoothingTimeConstant = 0.8;
+                    analyser.fftSize = 1024;
+                    
+                    microphone.connect(analyser);
+                    analyser.connect(javascriptNode);
+                    javascriptNode.connect(audioContext.destination);
+                    
+                    javascriptNode.onaudioprocess = processAudio;
+                    
+                    isMonitoring = true;
+                    startBtn.textContent = '停止朗读检测';
+                    micStatusElement.textContent = '麦克风已开启 - 正在检测音量';
+                    micStatusElement.className = 'mic-status mic-on';
+                    
+                    // 重置计时器
+                    resetTimers();
+                    
+                    // 启动连续状态检查定时器（每秒检查一次）
+                    consecutiveCheckInterval = setInterval(checkConsecutiveStatus, 1000);
+                })
+                .catch(function(err) {
+                    console.error('麦克风访问错误:', err);
+                    alert('无法访问麦克风，请确保已授予麦克风权限！');
+                });
+        }
+        
+        // 停止监测
+        function stopMonitoring() {
+            if (javascriptNode) {
+                javascriptNode.disconnect();
+            }
+            if (microphone) {
+                microphone.disconnect();
+            }
+            if (audioContext) {
+                audioContext.close();
+            }
+            
+            // 清除连续状态检查定时器
+            if (consecutiveCheckInterval) {
+                clearInterval(consecutiveCheckInterval);
+            }
+            
+            isMonitoring = false;
+            startBtn.textContent = '开始朗读检测';
+            micStatusElement.textContent = '麦克风未开启';
+            micStatusElement.className = 'mic-status mic-off';
+            currentDbElement.textContent = '0';
+            dbLevelElement.style.width = '0%';
+            meetingRequirementElement.textContent = '否';
+        }
+        
+        // 重置计时器
+        function resetTimers() {
+            currentMeetingTime = 0;
+            currentNotMeetingTime = 0;
+            lastStatus = null;
+        }
+        
+        // 处理音频数据
+        function processAudio() {
+            const array = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(array);
+            
+            let values = 0;
+            for (let i = 0; i < array.length; i++) {
+                values += array[i];
+            }
+            
+            const average = values / array.length * 1.5;
+            
+            // 平滑分贝值
+            const db = Math.round(
+                config.dbSmoothingFactor * average + 
+                (1 - config.dbSmoothingFactor) * lastDbValue
+            );
+            lastDbValue = db;
+            
+            // 更新UI
+            currentDbElement.textContent = db;
+            dbLevelElement.style.width = Math.min(db, 100) + '%';
+            
+            // 更新当前状态
+            const isMeetingRequirement = db >= config.growDb;
+            meetingRequirementElement.textContent = isMeetingRequirement ? '是' : '否';
+        }
+        
+        // 生成随机时间因子，基于配置的随机性
+        function getRandomTimeFactor() {
+            // 随机性越高，时间变化范围越大
+            const randomRange = config.randomness / 100 * 0.8; // 最大±80%的变化
+            return 1 - randomRange + Math.random() * randomRange * 2;
+        }
+        
+        // 随机选择植物类型
+        function getRandomPlantType() {
+            const random = Math.random() * 100;
+            let cumulativeProbability = 0;
+            
+            // 根据概率分布随机选择植物类型
+            for (const [type, probability] of Object.entries(config.plantTypeProbabilities)) {
+                cumulativeProbability += probability;
+                if (random < cumulativeProbability) {
+                    return type;
+                }
+            }
+            
+            // 默认返回小树
+            return 'smallTree';
+        }
+        
+        // 每秒检查一次连续状态
+        function checkConsecutiveStatus() {
+            if (!isMonitoring) return;
+            
+            const currentStatus = meetingRequirementElement.textContent === '是';
+            const randomFactor = getRandomTimeFactor(); // 获取随机时间因子
+            
+            // 状态未改变，累加计时
+            if (lastStatus === currentStatus) {
+                if (currentStatus) {
+                    currentMeetingTime++;
+                } else {
+                    currentNotMeetingTime++;
+                }
+            } else {
+                // 状态改变，重置对应计时器
+                if (currentStatus) {
+                    currentMeetingTime = 1;
+                    currentNotMeetingTime = 0;
+                } else {
+                    currentNotMeetingTime = 1;
+                    currentMeetingTime = 0;
+                }
+                lastStatus = currentStatus;
+            }
+            
+            // 更新总计时
+            if (currentStatus) {
+                meetingTime++;
+            } else {
+                notMeetingTime++;
+            }
+            
+            // 计算随机的生长和枯萎时间
+            const randomGrowTime = Math.max(1, Math.round(config.growTime * randomFactor));
+            const randomShrinkTime = Math.max(1, Math.round(config.shrinkTime * randomFactor));
+            
+            // 检查是否应该生长新植物
+            if (currentStatus && currentMeetingTime >= randomGrowTime) {
+                // 随机选择植物类型
+                const plantType = getRandomPlantType();
+                
+                switch (plantType) {
+                    case 'smallTree':
+                        addTree('small-tree');
+                        break;
+                    case 'bigTree':
+                        addTree('big-tree');
+                        break;
+                    case 'flower':
+                        addFlower('small-flower');
+                        break;
+                }
+                
+                // 重置当前计时，但保留部分时间以保持连续性
+                currentMeetingTime = Math.floor(randomGrowTime * 0.3);
+            }
+            
+            // 检查是否应该消失一个植物
+            if (!currentStatus && lastDbValue < config.shrinkDb && 
+                currentNotMeetingTime >= randomShrinkTime && 
+                (trees.length > 0 || flowers.length > 0)) {
+                
+                // 随机选择移除树木还是花朵
+                const totalPlants = trees.length + flowers.length;
+                const removeFlowerProbability = flowers.length / totalPlants;
+                
+                if (Math.random() < removeFlowerProbability && flowers.length > 0) {
+                    removeFlower();
+                } else if (trees.length > 0) {
+                    removeTree();
+                }
+                
+                // 重置当前计时，但保留部分时间以保持连续性
+                currentNotMeetingTime = Math.floor(randomShrinkTime * 0.3);
+            }
+            
+            // 检查是否应该升级树木和花朵
+            checkForTreeUpgrade();
+            checkForFlowerUpgrade();
+            
+            // 更新计数显示
+            updateCounters();
+            
+            // 更新时间显示
+            updateTimeDisplays();
+            
+            // 更新任务进度
+            updateTaskProgress();
+        }
+        
+        // 更新任务进度
+        function updateTaskProgress() {
+            // 朗读时长任务 (目标15分钟)
+            const totalMinutes = Math.floor(meetingTime / 60);
+            const durationPercent = Math.min(100, (totalMinutes / 15) * 100);
+            taskDurationElement.textContent = `${totalMinutes}/15分钟`;
+            durationProgressElement.style.width = `${durationPercent}%`;
+            
+            // 小树成长任务 (目标5棵)
+            const totalTrees = trees.length;
+            const treesPercent = Math.min(100, (totalTrees / 5) * 100);
+            taskTreesElement.textContent = `${totalTrees}/5棵`;
+            treesProgressElement.style.width = `${treesPercent}%`;
+            
+            // 花朵绽放任务 (目标3朵)
+            const totalFlowers = flowers.length;
+            const flowersPercent = Math.min(100, (totalFlowers / 3) * 100);
+            taskFlowersElement.textContent = `${totalFlowers}/3朵`;
+            flowersProgressElement.style.width = `${flowersPercent}%`;
+        }
+        
+        // 更新所有时间显示
+        function updateTimeDisplays() {
+            meetingTimeElement.textContent = formatTime(meetingTime);
+            notMeetingTimeElement.textContent = formatTime(notMeetingTime);
+            currentMeetingTimeElement.textContent = formatTime(currentMeetingTime);
+            currentNotMeetingTimeElement.textContent = formatTime(currentNotMeetingTime);
+        }
+        
+        // 格式化时间（秒 -> MM:SS）
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        // 开始主计时器
+        function startTimers() {
+            setInterval(() => {
+                if (!isMonitoring) {
+                    updateTimeDisplays();
+                }
+            }, 1000);
+        }
+        
+    
+        // 生成随机可用位置 - 修改后版本，不考虑植物大小，只确保不超出边界
+        function getRandomPosition(width, height) {
+                const gardenWidth = gardenElement.offsetWidth;
+                const gardenHeight = gardenElement.offsetHeight - 60; // 减去地面高度
+    
+                // 直接生成随机位置，不考虑植物大小和重叠
+                const left = Math.floor(Math.random() * (gardenWidth - width));
+                // 确保植物从地面生长，计算合适的顶部位置
+                const top = gardenHeight - height;
+    
+                return { left, top };
+            }
+        
+        // 添加树木
+        function addTree(type = 'small-tree') {
+            const tree = document.createElement('div');
+            tree.className = `tree ${type}`;
+            
+            // 根据树的类型设置不同的SVG和尺寸
+            let width, height;
+            if (type === 'small-tree') {
+                width = 60;
+                height = 120;
+                // 随机树叶颜色
+                const leafColors = ['#4caf50', '#66bb6a', '#81c784', '#388e3c'];
+                const randomLeafColor = leafColors[Math.floor(Math.random() * leafColors.length)];
+                
+                tree.innerHTML = `
+                    <svg viewBox="0 0 60 120" width="60" height="120">
+                        <rect x="25" y="80" width="10" height="40" fill="#8d6e63" />
+                        <circle cx="30" cy="50" r="25" fill="${randomLeafColor}" />
+                        <circle cx="20" cy="40" r="15" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 1) % leafColors.length]}" />
+                        <circle cx="40" cy="40" r="15" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 1) % leafColors.length]}" />
+                        <circle cx="30" cy="30" r="12" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 2) % leafColors.length]}" />
+                    </svg>
+                `;
+            } else if (type === 'big-tree') {
+                width = 100;
+                height = 200;
+                const leafColors = ['#388e3c', '#4caf50', '#2e7d32'];
+                const randomLeafColor = leafColors[Math.floor(Math.random() * leafColors.length)];
+                
+                tree.innerHTML = `
+                    <svg viewBox="0 0 100 200" width="100" height="200">
+                        <rect x="40" y="150" width="20" height="50" fill="#5d4037" />
+                        <circle cx="50" cy="100" r="40" fill="${randomLeafColor}" />
+                        <circle cx="30" cy="80" r="25" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 1) % leafColors.length]}" />
+                        <circle cx="70" cy="80" r="25" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 1) % leafColors.length]}" />
+                        <circle cx="50" cy="60" r="20" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 2) % leafColors.length]}" />
+                        <circle cx="30" cy="110" r="20" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 1) % leafColors.length]}" />
+                        <circle cx="70" cy="110" r="20" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 1) % leafColors.length]}" />
+                    </svg>
+                `;
+            } else if (type === 'huge-tree') {
+                width = 160;
+                height = 300;
+                const leafColors = ['#2e7d32', '#388e3c', '#1b5e20'];
+                const randomLeafColor = leafColors[Math.floor(Math.random() * leafColors.length)];
+                
+                tree.innerHTML = `
+                    <svg viewBox="0 0 160 300" width="160" height="300">
+                        <rect x="70" y="220" width="20" height="80" fill="#3e2723" />
+                        <circle cx="80" cy="150" r="60" fill="${randomLeafColor}" />
+                        <circle cx="40" cy="120" r="40" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 1) % leafColors.length]}" />
+                        <circle cx="120" cy="120" r="40" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 1) % leafColors.length]}" />
+                        <circle cx="80" cy="80" r="35" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 2) % leafColors.length]}" />
+                        <circle cx="40" cy="180" r="35" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 1) % leafColors.length]}" />
+                        <circle cx="120" cy="180" r="35" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 1) % leafColors.length]}" />
+                        <circle cx="80" cy="210" r="25" fill="${leafColors[(leafColors.indexOf(randomLeafColor) + 2) % leafColors.length]}" />
+                    </svg>
+                `;
+            }
+            
+            // 获取随机位置
+            const position = getRandomPosition(width, height);
+            tree.style.left = `${position.left}px`;
+            tree.style.top = `${position.top}px`;
+            
+            // 添加到花园
+            gardenElement.appendChild(tree);
+            trees.push(tree);
+            
+            // 更新计数
+            updateCounters();
+        }
+        
+        // 移除树木
+        function removeTree() {
+            if (trees.length === 0) return;
+            
+            // 随机选择一棵树
+            const index = Math.floor(Math.random() * trees.length);
+            const tree = trees[index];
+            
+            // 添加枯萎动画
+            tree.classList.add('tree-wither');
+            
+            // 动画结束后移除
+            setTimeout(() => {
+                gardenElement.removeChild(tree);
+                trees.splice(index, 1);
+                updateCounters();
+            }, 500);
+        }
+        
+        // 添加花朵 - 修改为四叶草形状
+        function addFlower(type = 'small-flower') {
+            const flower = document.createElement('div');
+            flower.className = `flower ${type}`;
+            
+            // 定义四叶草颜色方案 - 多样化的颜色
+            const cloverColors = [
+                { leaf: '#4caf50', stem: '#8d6e63' }, // 绿色四叶草
+                { leaf: '#66bb6a', stem: '#8d6e63' }, // 浅绿四叶草
+                { leaf: '#388e3c', stem: '#8d6e63' }, // 深绿四叶草
+                { leaf: '#81c784', stem: '#8d6e63' }, // 亮绿四叶草
+                { leaf: '#2e7d32', stem: '#8d6e63' }, // 森林绿四叶草
+                { leaf: '#4db6ac', stem: '#8d6e63' }, // 蓝绿四叶草
+                { leaf: '#26a69a', stem: '#8d6e63' }, // 青色四叶草
+                { leaf: '#009688', stem: '#8d6e63' }, // 青绿四叶草
+                { leaf: '#43a047', stem: '#8d6e63' }, // 鲜绿四叶草
+                { leaf: '#7cb342', stem: '#8d6e63' }  // 黄绿四叶草
+            ];
+            
+            // 随机选择颜色
+            const color = cloverColors[Math.floor(Math.random() * cloverColors.length)];
+            
+            // 根据四叶草的类型设置不同的SVG和尺寸
+            let width, height;
+            if (type === 'small-flower') {
+                width = 40;
+                height = 60;
+                flower.innerHTML = `
+                    <svg viewBox="0 0 40 60" width="40" height="60">
+                        <!-- 茎 -->
+                        <path d="M20 20 L20 60" stroke="${color.stem}" stroke-width="2" fill="none"/>
+                        <!-- 四叶草叶子 -->
+                        <path d="M20 20 Q 15 15 15 20 Q 15 25 20 25 Q 25 25 25 20 Q 25 15 20 20" fill="${color.leaf}" opacity="0.9"/>
+                        <path d="M20 20 Q 15 15 15 20 Q 15 25 20 25 Q 25 25 25 20 Q 25 15 20 20" fill="${color.leaf}" opacity="0.9" transform="rotate(90 20 20)"/>
+                        <path d="M20 20 Q 15 15 15 20 Q 15 25 20 25 Q 25 25 25 20 Q 25 15 20 20" fill="${color.leaf}" opacity="0.9" transform="rotate(180 20 20)"/>
+                        <path d="M20 20 Q 15 15 15 20 Q 15 25 20 25 Q 25 25 25 20 Q 25 15 20 20" fill="${color.leaf}" opacity="0.9" transform="rotate(270 20 20)"/>
+                    </svg>
+                `;
+            } else if (type === 'big-flower') {
+                width = 60;
+                height = 80;
+                flower.innerHTML = `
+                    <svg viewBox="0 0 60 80" width="60" height="80">
+                        <!-- 茎 -->
+                        <path d="M30 25 L30 80" stroke="${color.stem}" stroke-width="3" fill="none"/>
+                        <!-- 四叶草叶子 -->
+                        <path d="M30 25 Q 22 18 22 25 Q 22 32 30 32 Q 38 32 38 25 Q 38 18 30 25" fill="${color.leaf}" opacity="0.9"/>
+                        <path d="M30 25 Q 22 18 22 25 Q 22 32 30 32 Q 38 32 38 25 Q 38 18 30 25" fill="${color.leaf}" opacity="0.9" transform="rotate(90 30 25)"/>
+                        <path d="M30 25 Q 22 18 22 25 Q 22 32 30 32 Q 38 32 38 25 Q 38 18 30 25" fill="${color.leaf}" opacity="0.9" transform="rotate(180 30 25)"/>
+                        <path d="M30 25 Q 22 18 22 25 Q 22 32 30 32 Q 38 32 38 25 Q 38 18 30 25" fill="${color.leaf}" opacity="0.9" transform="rotate(270 30 25)"/>
+                    </svg>
+                `;
+            } else if (type === 'huge-flower') {
+                width = 80;
+                height = 100;
+                flower.innerHTML = `
+                    <svg viewBox="0 0 80 100" width="80" height="100">
+                        <!-- 茎 -->
+                        <path d="M40 30 L40 100" stroke="${color.stem}" stroke-width="4" fill="none"/>
+                        <!-- 四叶草叶子 -->
+                        <path d="M40 30 Q 28 20 28 30 Q 28 40 40 40 Q 52 40 52 30 Q 52 20 40 30" fill="${color.leaf}" opacity="0.9"/>
+                        <path d="M40 30 Q 28 20 28 30 Q 28 40 40 40 Q 52 40 52 30 Q 52 20 40 30" fill="${color.leaf}" opacity="0.9" transform="rotate(90 40 30)"/>
+                        <path d="M40 30 Q 28 20 28 30 Q 28 40 40 40 Q 52 40 52 30 Q 52 20 40 30" fill="${color.leaf}" opacity="0.9" transform="rotate(180 40 30)"/>
+                        <path d="M40 30 Q 28 20 28 30 Q 28 40 40 40 Q 52 40 52 30 Q 52 20 40 30" fill="${color.leaf}" opacity="0.9" transform="rotate(270 40 30)"/>
+                    </svg>
+                `;
+            }
+            
+            // 获取随机位置
+            const position = getRandomPosition(width, height);
+            flower.style.left = `${position.left}px`;
+            flower.style.top = `${position.top}px`;
+            
+            // 添加到花园
+            gardenElement.appendChild(flower);
+            flowers.push(flower);
+            
+            // 更新计数
+            updateCounters();
+        }
+        
+        // 移除花朵
+        function removeFlower() {
+            if (flowers.length === 0) return;
+            
+            // 随机选择一朵花
+            const index = Math.floor(Math.random() * flowers.length);
+            const flower = flowers[index];
+            
+            // 添加枯萎动画
+            flower.classList.add('flower-wither');
+            
+            // 动画结束后移除
+            setTimeout(() => {
+                gardenElement.removeChild(flower);
+                flowers.splice(index, 1);
+                updateCounters();
+            }, 500);
+        }
+        
+        // 检查树木升级
+        function checkForTreeUpgrade() {
+            // 随机决定是否进行升级检查，增加随机性
+            if (Math.random() > 0.7) return; // 70%概率跳过检查
+            
+            // 先检查是否可以从小树升级为大树
+            const smallTrees = trees.filter(tree => tree.classList.contains('small-tree'));
+            if (smallTrees.length >= config.treesToUpgrade) {
+                // 随机移除指定数量的小树
+                const treesToRemove = new Set();
+                while (treesToRemove.size < config.treesToUpgrade) {
+                    const randomIndex = Math.floor(Math.random() * smallTrees.length);
+                    treesToRemove.add(smallTrees[randomIndex]);
+                }
+                
+                treesToRemove.forEach(tree => {
+                    gardenElement.removeChild(tree);
+                    trees = trees.filter(t => t !== tree);
+                });
+                
+                // 添加1棵大树
+                addTree('big-tree');
+                updateCounters();
+                return; // 一次只升级一种类型
+            }
+            
+            // 再检查是否可以从大树升级为大大树
+            const bigTrees = trees.filter(tree => tree.classList.contains('big-tree'));
+            if (bigTrees.length >= config.treesToUpgrade) {
+                // 随机移除指定数量的大树
+                const treesToRemove = new Set();
+                while (treesToRemove.size < config.treesToUpgrade) {
+                    const randomIndex = Math.floor(Math.random() * bigTrees.length);
+                    treesToRemove.add(bigTrees[randomIndex]);
+                }
+                
+                treesToRemove.forEach(tree => {
+                    gardenElement.removeChild(tree);
+                    trees = trees.filter(t => t !== tree);
+                });
+                
+                // 添加1棵大大树
+                addTree('huge-tree');
+                updateCounters();
+            }
+        }
+        
+        // 检查花朵升级
+        function checkForFlowerUpgrade() {
+            // 随机决定是否进行升级检查
+            if (Math.random() > 0.7) return; // 70%概率跳过检查
+            
+            const smallFlowers = flowers.filter(flower => flower.classList.contains('small-flower'));
+            
+            if (smallFlowers.length >= config.flowersToUpgrade) {
+                // 随机移除指定数量的小花
+                const flowersToRemove = new Set();
+                while (flowersToRemove.size < config.flowersToUpgrade) {
+                    const randomIndex = Math.floor(Math.random() * smallFlowers.length);
+                    flowersToRemove.add(smallFlowers[randomIndex]);
+                }
+                
+                flowersToRemove.forEach(flower => {
+                    gardenElement.removeChild(flower);
+                    flowers = flowers.filter(f => f !== flower);
+                });
+                
+                // 添加1朵大花
+                addFlower('big-flower');
+            }
+            
+            const bigFlowers = flowers.filter(flower => flower.classList.contains('big-flower'));
+            
+            if (bigFlowers.length >= config.flowersToUpgrade) {
+                // 随机移除指定数量的大花
+                const flowersToRemove = new Set();
+                while (flowersToRemove.size < config.flowersToUpgrade) {
+                    const randomIndex = Math.floor(Math.random() * bigFlowers.length);
+                    flowersToRemove.add(bigFlowers[randomIndex]);
+                }
+                
+                flowersToRemove.forEach(flower => {
+                    gardenElement.removeChild(flower);
+                    flowers = flowers.filter(f => f !== flower);
+                });
+                
+                // 添加1朵大大花
+                addFlower('huge-flower');
+            }
+        }
+        
+        // 更新计数器显示
+        function updateCounters() {
+            const smallTreeCount = trees.filter(tree => tree.classList.contains('small-tree')).length;
+            const bigTreeCount = trees.filter(tree => tree.classList.contains('big-tree')).length;
+            const hugeTreeCount = trees.filter(tree => tree.classList.contains('huge-tree')).length;
+            
+            const smallFlowerCount = flowers.filter(flower => flower.classList.contains('small-flower')).length;
+            const bigFlowerCount = flowers.filter(flower => flower.classList.contains('big-flower')).length;
+            const hugeFlowerCount = flowers.filter(flower => flower.classList.contains('huge-flower')).length;
+            
+            treeCountElement.textContent = smallTreeCount;
+            bigTreeCountElement.textContent = bigTreeCount;
+            hugeTreeCountElement.textContent = hugeTreeCount;
+            
+            smallFlowerCountElement.textContent = smallFlowerCount;
+            bigFlowerCountElement.textContent = bigFlowerCount;
+            hugeFlowerCountElement.textContent = hugeFlowerCount;
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
